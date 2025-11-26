@@ -2,7 +2,7 @@ from dataprocess_ner import create_dataloader
 from model_ner import ner_model
 from tqdm import tqdm
 import torch
-from metric import F1cal
+from metric import F1_ner
 import torch.nn as nn
 from utils import Hypernum
 import argparse
@@ -35,7 +35,7 @@ def train(model,train_loader,optimizer,epoch,device):
 
 def dev(model,dev_loader,epoch,device,index2label):
     model.eval()
-    F1cal_ = F1cal(index2label)
+    F1cal_ = F1_ner(index2label)
     pbar = tqdm(dev_loader,desc=f"Deving{epoch}",unit="epoch",ncols=120)
     with torch.no_grad():
         for batch in pbar:
@@ -46,16 +46,16 @@ def dev(model,dev_loader,epoch,device,index2label):
             logits = torch.argmax(logits,dim=-1)
             F1cal_.update(logits,labels,attention_mask)
 
-            f1 = F1cal_.f1()
+            f1 = F1cal_.f1cal()
             pbar.set_postfix(f1 = f1)
-    f1 = F1cal_.f1()
+    f1 = F1cal_.f1cal()
     pbar.set_postfix(f1 = f1)
     return f1
 
 
 def test(model,test_loader,epoch,device,index2label):
     model.eval()
-    F1cal_ = F1cal(index2label)
+    F1cal_ = F1_ner(index2label)
     pbar = tqdm(test_loader,desc=f"Testing{epoch}",unit="epoch",ncols=120)
     with torch.no_grad():
         for batch in pbar:
@@ -66,9 +66,9 @@ def test(model,test_loader,epoch,device,index2label):
             logits = torch.argmax(logits,dim=-1)
             F1cal_.update(logits,labels,attention_mask)
 
-            f1 = F1cal_.f1()
+            f1 = F1cal_.f1cal()
             pbar.set_postfix(f1 = f1)
-    f1 = F1cal_.f1()
+    f1 = F1cal_.f1cal()
     pbar.set_postfix(f1 = f1)
     return f1
 

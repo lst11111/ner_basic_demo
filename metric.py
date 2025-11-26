@@ -1,5 +1,5 @@
 from seqeval.metrics.sequence_labeling import get_entities
-class F1cal():
+class F1_ner():
     def __init__(self,index2label):
         self.tp =0
         self.pre_len = 0
@@ -25,7 +25,7 @@ class F1cal():
             
             self.gold_len+=len(references)
             self.pre_len +=len(predictions)
-    def f1(self):
+    def f1cal(self):
         p = self.tp/(self.pre_len+1e-13)
         r = self.tp/(self.gold_len+1e-13)
 
