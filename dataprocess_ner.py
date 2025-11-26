@@ -10,7 +10,7 @@ class my_dataset(Dataset):
         self.texts,self.labels = self.read_data(os.path.join(hypernum.data_dir+hypernum.dataset_name+f"{self.mode}.txt"))
         self.tokenizer = AutoTokenizer.from_pretrained(hypernum.model_path)
         self.max_len = hypernum.max_len
-        self.parameter_path = hypernum.parameter_path
+        self.label_map_path = hypernum.label_map_path
         self.label2index,self.index2label = self.build_label_index(self.labels)
         
     def __len__(self):
@@ -70,7 +70,7 @@ class my_dataset(Dataset):
             labels.append(label1)    
         return texts, labels
     def build_label_index(self,labels):##创建标签和id的映射关系json文件，为避免多次构建，如果文件存在，就不在构建
-        path = self.parameter_path
+        path = self.label_map_path
         label2index = {}
         index2label = []
         if os.path.exists(path) and os.path.getsize(path)>0:

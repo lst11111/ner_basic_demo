@@ -3,7 +3,7 @@ dataset_name: "weibo/"
 model_path: "/home/model/bert-base-chinese"
 batch_size: 30
 max_len: 64
-parameter_path: "./parameter.json"
+label_map_path: "./data/weibo/label_map.json"
 epochs: 50
 lr: 2.0e-5
 save_pth: "./model.pth"
