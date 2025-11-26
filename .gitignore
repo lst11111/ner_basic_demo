@@ -1,2 +1,4 @@
 #忽略checkpoint
 model.pth
+##忽略缓存
+__pycache__
