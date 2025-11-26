@@ -102,7 +102,7 @@ def create_dataloader(hypernum):
     return train_loader,dev_loader,test_loader,train_dataset.index2label
 
 if __name__ =="__main__":
-    hypernum = Hypernum.from_yaml("./config/weibo.yaml")
+    hypernum = Hypernum.from_yaml("./my_config/weibo.yaml")
     trainloader,devloader,testloader,index2label = create_dataloader(hypernum)
     print(index2label)
     for batch in trainloader:
